@@ -1,0 +1,5 @@
+patient_id,clone_id,consensus_header,chromosome,INTEGRATION_SITE,n_reads,n_unique_reads,n_samples,n_timepoints,consensus_length,consensus_sequence
+PT1,PT1_clone000001,PT1_chr1_100_6_5,chr1,100,6,5,2,2,12,ACGTACNGTACG
+PT1,PT1_clone000002,PT1_chr2_200_3_3,chr2,200,3,3,2,2,4,ACGT
+PT2,PT2_clone000001,PT2_chr1_300_3_3,chr1,300,3,3,1,1,4,ACGT
+PT2,PT2_clone000002,PT2_chr2_400_2_2,chr2,400,2,2,1,1,4,ACGT
