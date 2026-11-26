@@ -10,6 +10,10 @@ Use the three outputs from the same run of [nf-clone-consensus](https://github.c
 
 ## Analytical method
 
+![nf-clone-variation workflow: input files, clone selection, consensus-relative variation analysis and outputs](pipeline_workflow.svg)
+
+*Illustrative alignment showing one substitution, insertion and deletion at distinct alignment columns.*
+
 1. Select clones with at least three distinct PCR families by default (`--min_unique_reads`).
 2. Verify the alignment and map each read to its sample, timepoint and PCR family.
 3. Treat terminal gaps and ambiguous read bases as missing. Use A/C/G/T and internal gaps as informative calls. Mask ambiguous consensus bases, including N.
