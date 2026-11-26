@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="536" viewBox="0 0 1420 536" role="img" aria-labelledby="title desc">
+<title id="title">nf-clone-variation workflow</title>
+<desc id="desc">Three upstream files are used to select clones with at least three PCR families by default, match alignments and metadata, assess consensus-relative variation and produce summaries, variant tables and plots. Equal-width aligned example sequences illustrate a substitution, insertion and deletion at different positions.</desc>
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill:#182638; }
+.heading { font-size:21px; font-weight:700; }
+.body { font-size:17px; }
+.file { font-family: Arial, Helvetica, sans-serif; font-size:16px; }
+.label { font-size:16px; font-weight:600; }
+.base { font-family: monospace; font-size:19px; font-weight:600; }
+.legend { font-size:15px; }
+</style>
+<rect width="1420" height="536" fill="#fff"/>
+<text x="710" y="49" font-size="32" font-weight="700" text-anchor="middle">nf-clone-variation workflow</text>
+<rect x="24" y="88" width="280" height="424" rx="12" fill="#fff" stroke="#83a7c3" stroke-width="1.5"/>
+<path d="M36 88 H292 Q304 88 304 100 V151 H24 V100 Q24 88 36 88Z" fill="#e0edf8"/>
+<text x="164" y="127" class="heading" text-anchor="middle">Inputs</text>
+<rect x="326" y="88" width="258" height="424" rx="12" fill="#fff" stroke="#8aab80" stroke-width="1.5"/>
+<path d="M338 88 H572 Q584 88 584 100 V151 H326 V100 Q326 88 338 88Z" fill="#e3efde"/>
+<text x="455" y="113" class="heading" text-anchor="middle">1. Select and</text>
+<text x="455" y="136" class="heading" text-anchor="middle">prepare clones</text>
+<rect x="606" y="88" width="476" height="424" rx="12" fill="#fff" stroke="#aa96c2" stroke-width="1.5"/>
+<path d="M618 88 H1070 Q1082 88 1082 100 V151 H606 V100 Q606 88 618 88Z" fill="#e9e1f2"/>
+<text x="844" y="127" class="heading" text-anchor="middle">2. Assess sequence variation</text>
+<rect x="1104" y="88" width="292" height="424" rx="12" fill="#fff" stroke="#83a7c3" stroke-width="1.5"/>
+<path d="M1116 88 H1384 Q1396 88 1396 100 V151 H1104 V100 Q1104 88 1116 88Z" fill="#e0edf8"/>
+<text x="1250" y="127" class="heading" text-anchor="middle">Outputs</text>
+<path d="M307 298 h11 v-6 l7 10 -7 10 v-6 h-11 z" fill="#53677c"/>
+<path d="M587 298 h11 v-6 l7 10 -7 10 v-6 h-11 z" fill="#53677c"/>
+<path d="M1085 298 h11 v-6 l7 10 -7 10 v-6 h-11 z" fill="#53677c"/>
+<path d="M43 176 h17 l8 8 v24 h-25 z M60 176 v8 h8 M48 192 h15 M48 198 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="82" y="196" class="file">clone_summary.csv</text>
+<path d="M43 251 h10 l4 4 h16 v19 h-30 z" fill="#f2d58b" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="82" y="264" class="file">clone_alignments/</text>
+<path d="M43 312 h17 l8 8 v24 h-25 z M60 312 v8 h8 M48 328 h15 M48 334 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="82" y="332" class="file">review/</text>
+<text x="82" y="353" class="file">read_assignments.csv</text>
+<rect x="40" y="425" width="248" height="67" rx="8" fill="#eef5fa"/>
+<text x="164" y="452" font-size="15" text-anchor="middle">Use files from the same</text>
+<text x="164" y="474" font-size="15" text-anchor="middle">nf-clone-consensus run</text>
+<circle cx="345" cy="188" r="3.4" fill="#455568"/><text x="359" y="193" class="body">Keep clones with</text>
+<text x="359" y="216" class="body">n_unique_reads ≥ 3</text>
+<text x="359" y="239" class="body">(default)</text>
+<circle cx="345" cy="277" r="3.4" fill="#455568"/><text x="359" y="282" class="body">Match each clone to</text>
+<text x="359" y="305" class="body">its alignment FASTA</text>
+<circle cx="345" cy="345" r="3.4" fill="#455568"/><text x="359" y="350" class="body">Map reads to sample ID,</text>
+<text x="359" y="373" class="body">PCR ID and timepoint</text>
+<text x="624" y="204" class="label">Consensus</text><rect x="727" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="742.5" y="204" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="762" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="777.5" y="204" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="797" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="812.5" y="204" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="832" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="847.5" y="204" class="base" text-anchor="middle" fill="#263548">T</text>
+<rect x="867" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="882.5" y="204" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="902" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="917.5" y="204" class="base" text-anchor="middle" fill="#263548">-</text>
+<rect x="937" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="952.5" y="204" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="972" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="987.5" y="204" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="1007" y="185" width="31" height="27" rx="4" fill="#edf1f5"/><text x="1022.5" y="204" class="base" text-anchor="middle" fill="#263548">T</text>
+<text x="624" y="238" class="label">Read 1</text><rect x="727" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="742.5" y="238" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="762" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="777.5" y="238" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="797" y="219" width="31" height="27" rx="4" fill="#fbe0e0"/><text x="812.5" y="238" class="base" text-anchor="middle" fill="#b32d35">A</text>
+<rect x="832" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="847.5" y="238" class="base" text-anchor="middle" fill="#263548">T</text>
+<rect x="867" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="882.5" y="238" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="902" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="917.5" y="238" class="base" text-anchor="middle" fill="#263548">-</text>
+<rect x="937" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="952.5" y="238" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="972" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="987.5" y="238" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="1007" y="219" width="31" height="27" rx="4" fill="#edf1f5"/><text x="1022.5" y="238" class="base" text-anchor="middle" fill="#263548">T</text>
+<text x="624" y="272" class="label">Read 2</text><rect x="727" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="742.5" y="272" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="762" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="777.5" y="272" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="797" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="812.5" y="272" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="832" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="847.5" y="272" class="base" text-anchor="middle" fill="#263548">T</text>
+<rect x="867" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="882.5" y="272" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="902" y="253" width="31" height="27" rx="4" fill="#dbe9fc"/><text x="917.5" y="272" class="base" text-anchor="middle" fill="#2458b0">C</text>
+<rect x="937" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="952.5" y="272" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="972" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="987.5" y="272" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="1007" y="253" width="31" height="27" rx="4" fill="#edf1f5"/><text x="1022.5" y="272" class="base" text-anchor="middle" fill="#263548">T</text>
+<text x="624" y="306" class="label">Read 3</text><rect x="727" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="742.5" y="306" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="762" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="777.5" y="306" class="base" text-anchor="middle" fill="#263548">C</text>
+<rect x="797" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="812.5" y="306" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="832" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="847.5" y="306" class="base" text-anchor="middle" fill="#263548">T</text>
+<rect x="867" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="882.5" y="306" class="base" text-anchor="middle" fill="#263548">A</text>
+<rect x="902" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="917.5" y="306" class="base" text-anchor="middle" fill="#263548">-</text>
+<rect x="937" y="287" width="31" height="27" rx="4" fill="#fce6c7"/><text x="952.5" y="306" class="base" text-anchor="middle" fill="#9a540b">-</text>
+<rect x="972" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="987.5" y="306" class="base" text-anchor="middle" fill="#263548">G</text>
+<rect x="1007" y="287" width="31" height="27" rx="4" fill="#edf1f5"/><text x="1022.5" y="306" class="base" text-anchor="middle" fill="#263548">T</text>
+<rect x="624" y="335" width="14" height="14" rx="3" fill="#fbe0e0" stroke="#b32d35"/><text x="644" y="347" class="legend">Substitution</text>
+<rect x="791" y="335" width="14" height="14" rx="3" fill="#dbe9fc" stroke="#2458b0"/><text x="811" y="347" class="legend">Insertion</text>
+<rect x="921" y="335" width="14" height="14" rx="3" fill="#fce6c7" stroke="#9a540b"/><text x="941" y="347" class="legend">Deletion</text>
+<circle cx="625" cy="378" r="3.4" fill="#455568"/><text x="639" y="383" class="body">One call per PCR family for statistics</text>
+<circle cx="625" cy="411" r="3.4" fill="#455568"/><text x="639" y="416" class="body">Exclude ambiguous consensus bases and</text>
+<text x="639" y="439" class="body">missing read coverage</text>
+<circle cx="625" cy="467" r="3.4" fill="#455568"/><text x="639" y="472" class="body">Compute pooled and timepoint-specific frequencies</text>
+<path d="M1121 170 h17 l8 8 v24 h-25 z M1138 170 v8 h8 M1126 186 h15 M1126 192 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="1160" y="190" class="file">clone_variation_</text>
+<text x="1160" y="211" class="file">summary.csv</text>
+<path d="M1121 238 h17 l8 8 v24 h-25 z M1138 238 v8 h8 M1126 254 h15 M1126 260 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="1160" y="258" class="file">variants.csv</text>
+<path d="M1121 299 h17 l8 8 v24 h-25 z M1138 299 v8 h8 M1126 315 h15 M1126 321 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="1160" y="319" class="file">variants_by_timepoint.csv</text>
+<path d="M1121 367 h10 l4 4 h16 v19 h-30 z" fill="#f2d58b" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="1160" y="380" class="file">plots/ (PNG, PDF)</text>
+<path d="M1121 425 h17 l8 8 v24 h-25 z M1138 425 v8 h8 M1126 441 h15 M1126 447 h15" fill="#fff" stroke="#526477" stroke-width="1.5" stroke-linejoin="round"/><text x="1160" y="445" class="file">review/</text>
+<text x="1160" y="466" class="file">skipped_clones.csv</text>
+</svg>
