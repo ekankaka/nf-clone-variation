@@ -253,6 +253,7 @@ def analyze(row, assignments, alignment, fraction):
                    variant_bases_per_kb=ratio(n_sub + n_ins + n_del, family_bases, 1000),
                    percent_families_with_variants=ratio(len(affected), len(evaluable_families), 100))
     plot(row, ref, reads, calls, info, depth, blocks, insertion_call)
+    plot_longitudinal(row, longitudinal)
     return summary, details, longitudinal
 
 
@@ -325,6 +326,79 @@ def plot(row, ref, reads, calls, info, depth, blocks, insertion_call):
     for ext in ("png", "pdf"):
         fig.savefig(row["consensus_header"] + "." + ext, dpi=150)
     plt.close(fig)
+
+
+
+def plot_longitudinal(row, longitudinal):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    # Plot exact alleles, using the same counts as variants_by_timepoint.csv.
+    variants = defaultdict(list)
+    for v in longitudinal:
+        key = (v["variant_type"], v["consensus_start"], v["consensus_end"],
+               v["consensus_allele"], v["alternative_allele"])
+        variants[key].append(v)
+    timepoints = sorted({v["timepoint"] for v in longitudinal}, key=time_order)
+    if len(timepoints) < 2 or not variants:
+        return
+
+    colors = {"substitution": "#c83239", "insertion": "#2563eb", "deletion": "#d97706"}
+    items = sorted(variants.items(), key=lambda item: (item[0][1], item[0]))
+    x = list(range(len(timepoints)))
+    # Use small multiples to keep overlapping trajectories distinguishable.
+    # Limit each page to 12 variants so large clones remain readable.
+    for start in range(0, len(items), 12):
+        page = items[start:start + 12]
+        ncols = min(3, len(page))
+        nrows = (len(page) + ncols - 1) // ncols
+        fig, axes = plt.subplots(nrows, ncols, squeeze=False,
+                                 figsize=(4.6 * ncols, 3.2 * nrows + 1))
+        for ax, (key, observations) in zip(axes.flat, page):
+            kind, left, right, ref, alt = key
+            by_time = {v["timepoint"]: v for v in observations}
+            counts = [(by_time[t]["n_supporting_families"], by_time[t]["n_covering_families"])
+                      if t in by_time else (0, 0) for t in timepoints]
+            # NaN breaks the line at missing coverage, rather than implying zero.
+            frequencies = [100 * n / d if d else float("nan") for n, d in counts]
+            ax.plot(x, frequencies, color=colors[kind], marker="o", markersize=4,
+                    linewidth=1.5)
+            for i, (n, d) in enumerate(counts):
+                if not d:
+                    if len(timepoints) <= 12:
+                        ax.text(i, 3, "NA", color="#64748b", ha="center", fontsize=8)
+                elif len(timepoints) <= 12:
+                    offset = -12 if frequencies[i] > 90 else 7
+                    ax.annotate(f"{n}/{d}", (i, frequencies[i]), xytext=(0, offset),
+                                textcoords="offset points", ha="center", fontsize=8)
+            # Keep very long indel strings from overwhelming the panel title.
+            ref_label = ref if len(ref) <= 12 else ref[:9] + "..."
+            alt_label = alt if len(alt) <= 12 else alt[:9] + "..."
+            locus = str(left) if left == right else f"{left}-{right}"
+            ax.set_title(f"{kind.capitalize()} | {locus}: {ref_label} > {alt_label}",
+                         fontsize=10, color=colors[kind])
+            ax.set_ylim(-5, 105)
+            ax.set_yticks([0, 25, 50, 75, 100])
+            ax.set_xlim(-.3, len(timepoints) - .7)
+            step = max(1, (len(timepoints) + 11) // 12)
+            ticks = sorted(set(list(range(0, len(timepoints), step)) + [len(timepoints) - 1]))
+            ax.set_xticks(ticks, [timepoints[i] for i in ticks], rotation=45,
+                          ha="right", fontsize=8)
+            ax.grid(axis="y", alpha=.2)
+            ax.set_axisbelow(True)
+        for ax in list(axes.flat)[len(page):]:
+            ax.set_visible(False)
+        fig.suptitle(row["consensus_header"] + " | Longitudinal allele frequencies", fontsize=12)
+        fig.supxlabel("Sampling timepoint (ordered; equally spaced)", fontsize=10)
+        fig.supylabel("Alternative allele frequency (%)", fontsize=10)
+        fig.text(.5, .005, "Labels: supporting / covering PCR families. NA: no coverage.",
+                 ha="center", fontsize=8, color="#475569")
+        fig.tight_layout(rect=(.03, .04, 1, .94))
+        suffix = "_longitudinal" if start == 0 else f"_longitudinal_{start // 12 + 1:02d}"
+        for ext in ("png", "pdf"):
+            fig.savefig(row["consensus_header"] + suffix + "." + ext, dpi=150)
+        plt.close(fig)
 
 
 def main():
