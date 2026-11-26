@@ -71,13 +71,17 @@ Clones with at least three distinct PCR families are analyzed by default. Substi
 
 ## Outputs
 
-| File or directory | Description |
-|---|---|
-| `clone_variation_summary.csv` | Original clone metadata plus coverage and length-normalized variation statistics |
-| `variants.csv` | Variant alleles, coordinates, frequencies and supporting families |
-| `variants_by_timepoint.csv` | Variant frequencies and coverage by timepoint |
-| `plots/` | Per-clone PNG and PDF plots |
-| `review/skipped_clones.csv` | Eligible clones that could not be analyzed, with reasons |
+```text
+results/
+├── clone_variation_summary.csv       # Clone-level variation statistics
+├── variants.csv                      # Variant alleles, coordinates and frequencies
+├── variants_by_timepoint.csv         # Variant frequencies and coverage by timepoint
+├── plots/
+│   ├── <consensus_header>.png         # Per-clone visualization
+│   └── <consensus_header>.pdf
+└── review/
+    └── skipped_clones.csv            # Skipped eligible clones and reasons
+```
 
 Clones with no detected differences remain in the summary. Variant frequencies are relative to the pooled consensus and do not establish new mutations or ongoing viral replication.
 
