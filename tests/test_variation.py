@@ -58,10 +58,45 @@ def check_results(folder):
     print("Synthetic counts, rates, longitudinal frequencies and skipped clones: PASS")
 
 
+
+def check_missing_coverage():
+    import os
+    import math
+    import runpy
+    from unittest.mock import patch
+    from matplotlib.axes import Axes
+
+    plot = runpy.run_path(str(SCRIPT))["plot_longitudinal"]
+    variant = dict(variant_type="substitution", consensus_start=2,
+                   consensus_end=2, consensus_allele="A", alternative_allele="G")
+    observations = [dict(variant, timepoint=t, n_supporting_families=n,
+                         n_covering_families=d)
+                    for t, n, d in [("1", 0, 2), ("2", 0, 0), ("3", 2, 3)]]
+    with tempfile.TemporaryDirectory() as temp:
+        cwd = Path.cwd()
+        try:
+            os.chdir(temp)
+            with patch.object(Axes, "plot", autospec=True, side_effect=Axes.plot) as draw:
+                plot({"consensus_header": "test"}, observations)
+                y = draw.call_args.args[2]
+                assert y[0] == 0 and math.isnan(y[1]) and abs(y[2] - 200/3) < 1e-8
+            assert Path("test_longitudinal.png").stat().st_size > 0
+            plot({"consensus_header": "single"}, observations[:1])
+            assert not Path("single_longitudinal.png").exists()
+        finally:
+            os.chdir(cwd)
+
+
 def main():
     if len(sys.argv) > 1:
-        check_results(Path(sys.argv[1]))
+        folder = Path(sys.argv[1])
+        check_results(folder)
+        varied, stable = read(folder / "clone_variation_summary.csv")
+        for ext in ("png", "pdf"):
+            assert (folder / "plots" / (varied["consensus_header"] + "_longitudinal." + ext)).stat().st_size > 0
+            assert not (folder / "plots" / (stable["consensus_header"] + "_longitudinal." + ext)).exists()
         return
+    check_missing_coverage()
     clones = read(DATA / "clone_summary.csv")
     assignments = read(DATA / "read_assignments.csv")
     with tempfile.TemporaryDirectory() as temp:
@@ -85,6 +120,11 @@ def main():
             if alignment.exists():
                 for ext in ("png", "pdf"):
                     assert (task / (header + "." + ext)).stat().st_size > 0
+                    longitudinal = task / (header + "_longitudinal." + ext)
+                    if read(task / "report/timepoints.csv"):
+                        assert longitudinal.stat().st_size > 0
+                    else:
+                        assert not longitudinal.exists()
         subprocess.run([sys.executable, str(SCRIPT), "merge", "--input", str(DATA / "clone_summary.csv")],
                        cwd=folder, check=True)
         check_results(folder)
