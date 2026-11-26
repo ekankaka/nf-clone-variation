@@ -4,6 +4,8 @@ A Nextflow pipeline for visualizing and quantifying within-clone HIV sequence va
 
 It uses outputs from [nf-clone-consensus](https://github.com/ekankaka/nf-clone-consensus), which in turn uses outputs from [nf-viral-integration](https://github.com/connor122721/nf-viral-integration). No realignment is performed.
 
+![nf-clone-variation workflow](docs/pipeline_workflow.svg)
+
 ## Requirements
 
 - Nextflow and Java (tested with Nextflow 25.10.4 and Java 17)
