@@ -21,7 +21,7 @@ Use the three outputs from the same run of [nf-clone-consensus](https://github.c
 5. Quantify substitutions and deleted bases at unambiguous consensus positions with at least two informative families. Count insertion alleles at internal consensus gap blocks with unambiguous flanks and at least two families spanning the junction.
 6. Report fully resolved deletion events separately from per-base deletion burden. Exact event frequencies require at least two families with informative calls across the event and base calls at both flanks. Count contiguous deleted bases as one event; alternative inserted sequences are separate alleles.
 7. Compute pooled and timepoint-specific frequencies using locus-specific family denominators. No coverage gives NA, not zero. Retain singleton variants at evaluable loci and report independent support.
-8. Plot all input reads, including PCR duplicates, ordered by timepoint, sample and family. Show raw substitutions, internal gaps and candidate insertions, followed by family-level variant frequencies and coverage.
+8. Plot all input reads, including PCR duplicates, ordered by timepoint, sample and family. Show raw substitutions, internal gaps and candidate insertions, followed by family-level variant frequencies and coverage. For clones with reported variants and at least two timepoints, also plot exact-allele frequencies over time (one panel per allele, with missing coverage shown as gaps).
 
 Plots use 1-based alignment columns. Tables also include ungapped consensus positions. The frequency panel shows per-column difference frequencies, not exact multi-base indel allele frequencies. Raw read differences may not survive family-level filters. Numeric timepoints sort numerically; other labels sort lexically.
 
@@ -49,7 +49,7 @@ After running the synthetic Nextflow example in the README, verify its outputs:
 python tests/test_variation.py results_test
 ```
 
-GitHub Actions checks the Python analysis, native Nextflow execution and the case with no eligible clones.
+GitHub Actions checks the Python analysis, native Nextflow execution, longitudinal plot generation and publication, missing-coverage gaps, and the case with no eligible clones.
 
 ## Execution environment
 
