@@ -13,7 +13,7 @@ IDS = ["patient_id", "clone_id", "consensus_header"]
 COUNTS = """n_callable_consensus_bases n_evaluable_positions percent_evaluable_consensus
 mean_family_depth n_callable_family_bases n_evaluable_insertion_junctions
 n_callable_family_insertion_junctions n_evaluable_families n_substitution_sites
-n_insertion_sites n_deletion_sites n_substitutions n_insertion_events n_deletion_events
+n_insertion_sites n_deletion_sites n_deletion_base_sites n_substitutions n_insertion_events n_deletion_events
 n_inserted_bases n_deleted_bases n_families_with_variants n_multifamily_variants
 n_multisample_variants n_multitimepoint_variants max_variant_frequency
 substitution_sites_per_kb substitutions_per_kb inserted_bases_per_kb
@@ -236,6 +236,7 @@ def analyze(row, assignments, alignment, fraction):
                    n_substitution_sites=len(sub_sites),
                    n_insertion_sites=len({v["alignment_start"] for v in ins}),
                    n_deletion_sites=len({(v["alignment_start"], v["alignment_end"]) for v in dels}),
+                   n_deletion_base_sites=len(deleted_sites),
                    n_substitutions=n_sub, n_insertion_events=sum(v["n_supporting_families"] for v in ins),
                    n_deletion_events=sum(v["n_supporting_families"] for v in dels),
                    n_inserted_bases=n_ins, n_deleted_bases=n_del,
@@ -251,7 +252,7 @@ def analyze(row, assignments, alignment, fraction):
                    deleted_bases_per_kb=ratio(n_del, family_bases, 1000),
                    variant_bases_per_kb=ratio(n_sub + n_ins + n_del, family_bases, 1000),
                    percent_families_with_variants=ratio(len(affected), len(evaluable_families), 100))
-    plot(row, ref, reads, calls, info, depth, eligible_blocks, insertion_call)
+    plot(row, ref, reads, calls, info, depth, blocks, insertion_call)
     return summary, details, longitudinal
 
 
@@ -261,7 +262,7 @@ def plot(row, ref, reads, calls, info, depth, blocks, insertion_call):
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
 
-    colors = {"match": "#9ca3af", "substitution": "#c83239",
+    colors = {"covered": "#9ca3af", "substitution": "#c83239",
               "insertion": "#2563eb", "deletion": "#d97706", "masked": "#dedede"}
     reads = sorted(reads, key=lambda r: (time_order(info[r[0]]), r[0], r[2]))
     fig, (ax, freq, cov) = plt.subplots(3, 1, sharex=True,
@@ -274,7 +275,7 @@ def plot(row, ref, reads, calls, info, depth, blocks, insertion_call):
         ax.axvspan(a + .5, b + 1.5, color=colors["masked"], alpha=.6)
     for y, (key, s, name) in enumerate(reads):
         for a, b in runs([i for i, v in enumerate(s) if v in STATES]):
-            ax.hlines(y, a + 1, b + 1, color=colors["match"], linewidth=2)
+            ax.hlines(y, a + 1, b + 1, color=colors["covered"], linewidth=2)
         for kind, indices in [
             ("substitution", [i for i, v in enumerate(s) if ref[i] in BASES and v in BASES and v != ref[i]]),
             ("deletion", [i for i, v in enumerate(s) if ref[i] in BASES and v == "-"]),
