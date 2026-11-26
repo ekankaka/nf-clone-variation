@@ -90,6 +90,4 @@ Clones with no detected differences remain in the summary. Variant frequencies a
 - [Data dictionary](docs/data_dictionary.md): output variables and denominators.
 - [Methods and implementation notes](docs/methods.md): input specifications, analytical rules, limitations and tests.
 
-Native end-to-end synthetic tests passed. Container and HPC execution have not yet been independently verified.
-
 License: [MIT](LICENSE).
