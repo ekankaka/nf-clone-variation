@@ -3,6 +3,7 @@
 A Nextflow pipeline for visualizing and quantifying within-clone HIV sequence variation relative to a derived clone consensus, including longitudinal changes in allele frequency.
 
 It uses outputs from [nf-clone-consensus](https://github.com/ekankaka/nf-clone-consensus). No realignment is performed.
+In turn, `nf-clone-consensus` uses outputs from [nf-viral-integration](https://github.com/connor122721/nf-viral-integration). 
 
 ## Requirements
 
