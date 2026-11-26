@@ -4,8 +4,6 @@ A Nextflow pipeline for visualizing and quantifying within-clone HIV sequence va
 
 It uses outputs from [nf-clone-consensus](https://github.com/ekankaka/nf-clone-consensus), which in turn uses outputs from [nf-viral-integration](https://github.com/connor122721/nf-viral-integration). No realignment is performed.
 
-![nf-clone-variation workflow](docs/pipeline_workflow.svg)
-
 ## Requirements
 
 - Nextflow and Java (tested with Nextflow 25.10.4 and Java 17)
@@ -66,6 +64,8 @@ nextflow run main.nf \
 Keep HPC-specific settings in an external configuration file. Work and container cache directories must be accessible from compute nodes. Use `-profile slurm,apptainer` for Apptainer.
 
 ## Method
+
+![nf-clone-variation workflow](docs/pipeline_workflow.svg)
 
 Clones with at least three distinct PCR families are analyzed by default. Substitutions, insertions and deletions are identified relative to the aligned consensus. Ambiguous consensus bases and missing read coverage are excluded. Quantitative results use one call per PCR family (sample_id + PCR_ID) and require at least two informative families at each evaluated locus. Plots show all reads, including PCR duplicates.
 
