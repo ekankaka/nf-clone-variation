@@ -77,13 +77,15 @@ results/
 ├── variants.csv                      # Variant alleles, coordinates and frequencies
 ├── variants_by_timepoint.csv         # Variant frequencies and coverage by timepoint
 ├── plots/
-│   ├── <consensus_header>.png         # Per-clone visualization
-│   └── <consensus_header>.pdf
+│   ├── <consensus_header>.png         # Alignment variation
+│   ├── <consensus_header>.pdf
+│   ├── <consensus_header>_longitudinal.png
+│   └── <consensus_header>_longitudinal.pdf
 └── review/
     └── skipped_clones.csv            # Skipped eligible clones and reasons
 ```
 
-Clones with no detected differences remain in the summary. Variant frequencies are relative to the pooled consensus and do not establish new mutations or ongoing viral replication.
+Longitudinal plots are generated for clones with reported variants and at least two sampling timepoints; additional pages are numbered if needed. Clones with no detected differences remain in the summary. Variant frequencies are relative to the pooled consensus and do not establish new mutations or ongoing viral replication.
 
 ## Documentation
 
